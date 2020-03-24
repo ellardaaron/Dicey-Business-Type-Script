@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",                     
+    "strict": true,                          
+    "esModuleInterop": true,                  
+    "forceConsistentCasingInFileNames": true  
+  },
+  "files": [
+    "hello.ts"
+  ]
+}
