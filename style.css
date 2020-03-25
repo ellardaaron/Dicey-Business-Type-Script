@@ -1,0 +1,16 @@
+#dice-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: white;
+    border: solid black 10px;
+}

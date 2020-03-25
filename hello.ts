@@ -1,11 +1,12 @@
-let container = document.getElementById('dice-container'); //sets the variable container to the square container div in the html
-let diceSum = document.getElementById('sum-dice');  //button that adds all current dice and displays and alert of the sum
-let sqButton = document.getElementById('sq-button'); //assigns sqButton to the html button "sq-button"
-let rerollButton = document.getElementById('re-button');
+const container = <HTMLDivElement>document.getElementById('dice-container'); //sets the variable container to the square container div in the html
+const generateButton = <HTMLDivElement>document.getElementById('generate-die'); //assigns generateButton to the html button "generate-die"
+const rollButton = <HTMLDivElement>document.getElementById('re-button');
+const sumButton = <HTMLDivElement>document.getElementById('sum-dice');  //button that adds all current dice and displays and alert of the sum
+
+let diceArray: Square[] = [];
 
 class Square {
-
-    public items: Array<Dice> = [];
+    div: HTMLDivElement;
 
     constructor() {
         this.div = document.createElement('div'); //creates a new div 
@@ -21,14 +22,13 @@ class Square {
             const index = diceArray.indexOf(this);
             if(index > -1){
                 diceArray.splice(index, 1);             
-            }
-            
-            this.div.parentNode.removeChild(this.div);
+            }            
+            container.removeChild(this.div);
         })
     }
 
     dieValue() {
-        this.div.innerText = randomVal(1, 7);
+        this.div.innerText = (randomVal(1, 7)).toString();
     }
     updateColor () {
         let randomColor = `rgb(${randomVal(0,255)}, ${randomVal(0,255)}, ${randomVal(0,255)})`  //calls on randomVal function to pick a number from 0-255 which then inturn will give us a rgb color value
@@ -40,9 +40,9 @@ class Square {
 
 //Buttons-----------------------------
 
-sqButton.addEventListener('click', insertSquare);       //adds an event listener that when clicked executes the insert square function
+generateButton.addEventListener('click', ()=>{let sq = new Square();});       //adds an event listener that when clicked executes the insert square function
 
-rerollButton.addEventListener('click', () => {
+rollButton.addEventListener('click', () => {
     diceArray.forEach(die => {
         console.log(die);
         die.dieValue();
@@ -50,8 +50,8 @@ rerollButton.addEventListener('click', () => {
 });
 console.log(diceArray)
 
-diceSum.addEventListener('click', () => {
-    let diceVal = [];
+sumButton.addEventListener('click', () => {
+    let diceVal: number[] = [];
     diceArray.forEach((val) => {
         let num = parseInt(val.div.innerText)
         diceVal.push(num);
@@ -62,10 +62,6 @@ diceSum.addEventListener('click', () => {
 });
 
 //Functions-------------------------
-
-function insertSquare() {
-    let sq = new Square();
-}
 
 function randomVal(min: number, max:number) {    //a random value function that pics a number between the inserted min and max values
     return Math.floor(Math.random() * (max - min)) + min;
